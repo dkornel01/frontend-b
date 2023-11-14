@@ -2,7 +2,9 @@
 // https://github.com/axios/axios
 class DataService {
     #list = [];
-    constructor() {}
+    constructor() {
+      axios.default.baseURL="http://localhost:8000/api/writer";
+    }
     getAxiosData(url, callback){
         axios.get(url)
         .then(function (response) {
@@ -32,6 +34,27 @@ class DataService {
           .catch(function (error) {
             console.log(error);
           });
+    }
+    putAxioData(url,data){
+      console.log(data)
+      console.log(`${url}/${data.id}`);
+      axios
+        .put(`${url}/${date.id}`,data)
+        .then((response)=>{
+          console.log("Resp",response);
+        })
+        .catch((error))
+    }
+    deleteAxiosDate(url, id){
+      console.log(`${url}/${id}`);
+      axios
+        .delete(`${url}/${id}`)
+        .then((response)=>{
+          console.log("Resp",response);
+        })
+        .catch((error)=>{
+          console.log("hiba",error);
+        })
     }
 }
 export default DataService;

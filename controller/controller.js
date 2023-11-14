@@ -4,7 +4,7 @@ import DataService from "../model/DataService.js";
 //import AdatokView from "../view/AdatokView.js";
 
 class UrlapController {
-    #dataService;
+    
    
     constructor() {
         
@@ -14,11 +14,17 @@ class UrlapController {
         this.asszinkronAdatok();
     }
     asszinkronAdatok() {
-        let adatVegpont = "http://localhost:8000/writers";
-        this.#dataService = new DataService();
+        let adatVegpont = "http://localhost:8000/api/writer";
+        this.dataService = new DataService();
         //this.#asszinkron.getData(adatVegpont, this.feldolgoz);
-        this.#dataService.getAxiosData(adatVegpont, this.megjelenit);
-        this.#dataService.postAxiosData(adatVegpont,{"nev":"kornel","szuletes":1900})
+        this.dataService.getAxiosData(adatVegpont, this.megjelenit);
+        this.dataService.postAxiosData(adatVegpont,{"nev":"kornel","szuletes":1900})
+        this.dataService.putAxiosData("api/writer",{
+            id: 1,
+            nev: "József Attila",
+            szuletes: 1931, 
+        })
+        this.dataService.deleteAxiosDate("api/writer",15);
     }//http://localhost:3000/adat
     /*urlap() {
         const urlapModel = new UrlapModel();
