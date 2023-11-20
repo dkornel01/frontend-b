@@ -5,7 +5,7 @@ class DataService {
     constructor() {
       axios.default.baseURL="http://localhost:8000/api/writer";
     }
-    /*
+    
     getAxiosData(url, callback){
         axios.get(url)
         .then(function (response) {
@@ -27,6 +27,29 @@ class DataService {
           console.log("finally")
         });
     }
+
+    postData(url, callback) {
+      async function getData(url = "") {
+          const response = await fetch(url, {
+              method: "GET", 
+              mode: "cors", 
+              cache: "no-cache", 
+              credentials: "same-origin", 
+              headers: {
+                  "Content-Type": "application/json",
+              },
+              redirect: "follow", 
+              referrerPolicy: "no-referrer", 
+          });
+          return response.json();
+      }
+
+      getData(url).then((data) => {
+          console.log(data); 
+          callback(data);
+      });
+    }
+
      postAxiosData(url, data){
         axios.post(url, data)
           .then(function (response) {
