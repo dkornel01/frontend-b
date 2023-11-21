@@ -3,19 +3,13 @@
 class DataService {
     #list = [];
     constructor() {
-      axios.default.baseURL="http://localhost:8000/api/writer";
+      axios.defaults.baseURL="http://localhost:8000/";
     }
     
     getAxiosData(url, callback){
         axios.get(url)
         .then(function (response) {
           // handle success
-          console.log(response);
-          console.log(response.data);
-          console.log(response.status);
-          console.log(response.statusText);
-          console.log(response.headers);
-          console.log(response.config);
           callback(response.data)
         })
         .catch(function (error) {
@@ -59,26 +53,28 @@ class DataService {
             console.log(error);
           });
     }
-    putAxioData(url,data){
-      console.log(data)
-      console.log(`${url}/${data.id}`);
+    putAxioData(url,data,){
+      //console.log(`${url}/${data.id}`);
       axios
-        .put(`${url}/${date.id}`,data)
+        .put(`${url}/${data.id}`,data)
         .then((response)=>{
-          console.log("Resp",response);
+          //console.log("Resp",response);
         })
-        .catch((error))
-    }
+        .catch((error)=>{
+          //console.log("hiba",error);
+        })
+      }
+    
     deleteAxiosDate(url, id){
-      console.log(`${url}/${id}`);
+      //console.log(`${url}/${id}`);
       axios
         .delete(`${url}/${id}`)
         .then((response)=>{
-          console.log("Resp",response);
+          //console.log("Resp",response);
         })
         .catch((error)=>{
-          console.log("hiba",error);
+          //console.log("hiba",error);
         })
     }
-}
+  }
 export default DataService;
