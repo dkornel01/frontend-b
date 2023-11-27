@@ -1,32 +1,28 @@
-/*import UrlapModel from "../model/UrlapModel.js";*/
-import UrlapView from "../view/urlap/UrlapView.js";
 import DataService from "../model/DataService.js";
-//import AdatokView from "../view/AdatokView.js";
+import AdatView from "../view/urlap/adatview.js";
+import InputView from "../view/urlap/InputView.js";
 
 class UrlapController {
-    
-   
-    constructor() {
-        
-        //this.urlap()
-        /* this.#dataService = new DataService();
-        this.#dataService.getData(adatVegpont, feldolgoz); */
+    #AdatView
+    #UrlapView
+    #input
+    dataService = new DataService();
+    adatVegpont = "api/writer";  
+    constructor() { 
         this.asszinkronAdatok();
     }
     asszinkronAdatok() {
-        let adatVegpont = "api/writer";
-        this.dataService = new DataService();
-        //this.#asszinkron.getData(adatVegpont, this.feldolgoz);
-        this.dataService.getAxiosData(adatVegpont, this.megjelenit);
-        this.dataService.postAxiosData(adatVegpont,{"nev":"kornel","szuletes":1900})
-        this.dataService.putAxioData(adatVegpont,{
+        this.dataService.getAxiosData(this.adatVegpont, this.megjelenit);
+        this.urlap()
+        //this.dataService.postAxiosData(this.adatVegpont,{"nev":"kornel","szuletes":1900})
+        /*this.dataService.putAxioData(adatVegpont,{
             "id":1,
             "nev": "József Attila",
             "szuletes": 1931
         })
         this.dataService.deleteAxiosDate(adatVegpont,11);
-        //this.dataService.getAxiosData(adatVegpont,this.megjelenit)
-    }//http://localhost:3000/adat
+    */
+    }
     /*urlap() {
         const urlapModel = new UrlapModel();
         const urlapView = new UrlapView(urlapModel.adatLeiras, $(".urlap"));
@@ -37,13 +33,34 @@ class UrlapController {
     }
    */
   megjelenit(list){
-    console.log(list);
-    //this.urlap();
+    let szuloElemAdat=$(".lista");
+    this.#AdatView=new AdatView(list,szuloElemAdat)
   }
 
   urlap(){
-    const UrlapModel=new urlapModel();
-    const urlap=new UrlapView(UrlapModel.adatleiras,$(".urlap"));
+    this.#input=new InputView()
+    $(window).on("uplode",(event)=>{
+        console.log(event.detail)
+        let nev=document.getElementById("name").value
+        let szuletes=document.getElementById("szuletes").value
+        this.dataService.postAxiosData(this.adatVegpont,{"nev":nev,"szuletes":szuletes})
+    });
+    $(window).on("delete",(event)=>{
+        let id=document.getElementById("id").value
+        id=parseInt(id)
+        console.log(id)
+        this.dataService.deleteAxiosDate(this.adatVegpont,id);
+    });
+    $(window).on("update",(event)=>{
+        let id=document.getElementById("id").value
+        let nev=document.getElementById("name").value
+        let szuletes=document.getElementById("szuletes").value
+        this.dataService.putAxioData(this.adatVegpont,{
+            "id":id,
+            "nev": nev,
+            "szuletes": szuletes,
+        })
+    });
   }
 }
 export default UrlapController;
