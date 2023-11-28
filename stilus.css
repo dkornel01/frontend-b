@@ -1,0 +1,21 @@
+tr.tr{
+    border-style: solid black;
+    border-top-width:1px;
+    border-right-width:1px;
+    border-left-width:1px;
+    border-bottom-width:1px;
+}
+td.td{
+    border-style: solid black;
+    border-top-width:1px;
+    border-right-width:1px;
+    border-left-width:1px;
+    border-bottom-width:1px;
+}
+th.th{
+    border-style: solid black;
+    border-top-width:1px;
+    border-right-width:1px;
+    border-left-width:1px;
+    border-bottom-width:1px;
+}
